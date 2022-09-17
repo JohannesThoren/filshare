@@ -4,23 +4,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/main.css')}}">
     <title>Document</title>
 </head>
 
 <body>
-    <h1>LGJT Fileshare</h1>
-    <p>A safe place for hosting files</p>
-    <h1>Terms Of Service</h1>
-    <p> byt uploading a file you agree to take full responsibility of it's content, and confirms that the file uploaded
-        do not contain any Copyright infringing, pirated or illegal material. IF we find
-        material. If we find any Copyright infringing, pirated or illegal material in a file uploaded, the ip and email address of
-        person who uploaded the file will be permanently banned and unable to access the webpage.</p>
 
-    <form action="{{url_for('upload')}}" method="post">
+    <div class="header card">
+        <h1>LGJT Fileshare</h1>
+        <p>A safe place for hosting files</p>
+    </div>
+
+    <div class="tos card">
+        <h1>Terms Of Service</h1>
+        <p> byt uploading a file you agree to take full responsibility of it's content, and confirms that the file
+            uploaded
+            do not contain any Copyright infringing, pirated or illegal material. IF we find
+            material. If we find any Copyright infringing, pirated or illegal material in a file uploaded, the ip and
+            email
+            address of
+            person who uploaded the file will be permanently banned and unable to access the webpage.</p>
+    </div>
+
+    <form class="upload card" enctype="multipart/form-data" action="{{url_for('upload')}}" method="post">
         <h1>Upload a file</h1>
-        <label for="email">Email Address</label> <input name="email" type="email"> <br>
-        <input type="file"> <br>
-        <input type="submit" value="Upload File">
+        <p>Press browse, select the file you want to upload, fill in the email field and password field. if you leave the password field blank the file will not be password protected.</p>
+        <input type="file" class="custom-file-input" name="file" required> <br>
+        <label or="Email">Email Address</label> <input class="input" name="Email" type="email" required> <br>
+        <label for="Password">File Password</label> <input class="input" type="Password" name="Password" id="password"> <br>
+        <input class="btn" type="submit" value="Upload File">
     </form>
 </body>
 
