@@ -1,0 +1,27 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>LGJT Fileshare</h1>
+    <p>A safe place for hosting files</p>
+    <h1>Terms Of Service</h1>
+    <p> byt uploading a file you agree to take full responsibility of it's content, and confirms that the file uploaded
+        do not contain any Copyright infringing, pirated or illegal material. IF we find
+        material. If we find any Copyright infringing, pirated or illegal material in a file uploaded, the ip and email address of
+        person who uploaded the file will be permanently banned and unable to access the webpage.</p>
+
+    <form action="{{url_for('upload')}}" method="post">
+        <h1>Upload a file</h1>
+        <label for="email">Email Address</label> <input name="email" type="email"> <br>
+        <input type="file"> <br>
+        <input type="submit" value="Upload File">
+    </form>
+</body>
+
+</html>
