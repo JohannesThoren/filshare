@@ -1,4 +1,2 @@
-// Copyright 2022 Johannes Thorén. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
+# LGJT-Fileshare
+a open source files haring website, made to make it easier to set up file sharing/hosting services.
