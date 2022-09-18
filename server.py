@@ -2,14 +2,19 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
+from sqlite3 import dbapi2
 from flask import Flask, render_template, request, flash
 import os
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
+import uuid
+import db
 
 load_dotenv()
 
 app = Flask(__name__)
+
+db.create_table()
 
 @app.get("/")
 def index():
@@ -18,17 +23,28 @@ def index():
 
 @app.post("/upload")
 def upload():
+
+
     # TODO: well we can save file, but it should not be saved as a something dot something file.
     # it should have a UID as file name. then the file path should sent to the db together with
     # the password and email address.
-
+    
+    uid = str(uuid.uuid4())[:8]
+    
     file = request.files['file']
-    open(os.environ.get("FILE_STORAGE_LOCATION")+file.filename,"w+").close()
-    file.save(os.environ.get("FILE_STORAGE_LOCATION")+"/"+file.filename)
+    
+    open(os.path.join(os.environ.get("FILE_STORAGE_LOCATION"), uid), "w+").close()
+    file.save(os.path.join(os.environ.get("FILE_STORAGE_LOCATION"), uid))
+    
+    file_password = request.form.get("Password")
+    email = request.form.get("Email")
+    url = f"https://{os.environ.get('HOSTNAME')}/f/{uid}"
+    
+    db.add_file(uid, file.filename, email, file_password)
 
-    return render_template("file-details.html", password=request.form.get("Password"), filename=file.filename, )
-
+    return render_template("file-details.html", password=file_password, filename=file.filename, url=url)
 
 
 if __name__ == "__main__":
-    app.run(port=os.environ.get("PORT"), host=os.environ["HOSTNAME"], debug=True)
+    app.run(port=os.environ.get("PORT"),
+            host=os.environ["HOSTNAME"], debug=True)

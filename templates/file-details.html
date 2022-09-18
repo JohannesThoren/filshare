@@ -9,10 +9,11 @@
 <body>
     <div class="card">
         <h1>{{filename}}</h1>
+        <p>File was successfully uploaded, use the link down below to share the file.</p>
         {% if password %}
         <p>file password: {{password}}</p>
         {%endif%}
-        <p>url to file: {{url}}</p>
+        <p>url to file: <a href="{{url}}">{{url}}</a></p>
     </div>
 </body>
 </html>
