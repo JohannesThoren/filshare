@@ -5,9 +5,10 @@
 from crypt import methods
 from sqlite3 import dbapi2
 from flask import Flask, render_template, request, flash, send_file
-import os
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
+from hashlib import md5
+import os
 import uuid
 import db
 import datetime
@@ -44,7 +45,8 @@ def upload():
     date = datetime.datetime.now()
 
 
-    db.add_file(uid, file.filename, email, file_password, date)
+    db.add_file(uid, file.filename, email, md5(file_password.encode("UTF-8")).hexdigest(), date=date)
+
     return render_template("file-details.html", password=file_password, filename=file.filename, url=url)
 
 
