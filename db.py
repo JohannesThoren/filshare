@@ -14,7 +14,7 @@ def execute_query(query: str):
 
 
 def create_table():
-    t = """CREATE TABLE IF NOT EXISTS files (uid TEXT, filename TEXT, pass TEXT, email TEXT)"""
+    t = """CREATE TABLE IF NOT EXISTS files (uid TEXT, filename TEXT, pass TEXT, email TEXT, date DATE)"""
     execute_query(t)
 
 def get_file_information(uid):
@@ -26,9 +26,9 @@ def get_file_information(uid):
     return d
 
 
-def add_file(uid, filename, email, file_password):
-    q = "INSERT INTO files VALUES (?, ?, ?, ?)"
+def add_file(uid, filename, email, file_password, date):
+    q = "INSERT INTO files VALUES (?, ?, ?, ?, ?)"
 
     print(q)
-    cur.execute(q, (uid, filename, file_password, email))
+    cur.execute(q, (uid, filename, file_password, email, date))
     con.commit()

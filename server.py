@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 import uuid
 import db
+import datetime
 
 load_dotenv()
 
@@ -40,9 +41,10 @@ def upload():
     file_password = request.form.get("Password")
     email = request.form.get("Email")
     url = f"http://{os.environ.get('HOSTNAME')}:{os.environ.get('PORT')}/f/{uid}"
+    date = datetime.datetime.now()
 
-    db.add_file(uid, file.filename, email, file_password)
 
+    db.add_file(uid, file.filename, email, file_password, date)
     return render_template("file-details.html", password=file_password, filename=file.filename, url=url)
 
 
