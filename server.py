@@ -28,10 +28,6 @@ def index():
 @app.post("/upload")
 def upload():
 
-    # TODO: well we can save file, but it should not be saved as a something dot something file.
-    # it should have a UID as file name. then the file path should sent to the db together with
-    # the password and email address.
-
     uid = str(uuid.uuid4())[:8]
 
     file = request.files['file']
@@ -57,13 +53,17 @@ def download(uid):
     fd = db.get_file_information(uid)
     passwd = request.form.get("Password")
 
+    # check the request method is a post request, when entering a password and unlocking we use a post request 
     if request.method == "POST":
         if md5(passwd.encode("UTF-8")).hexdigest() == fd[2]:
             file_path = os.environ.get("FILE_STORAGE_LOCATION")
             return send_file(f"{file_path}/{uid}", download_name=fd[1], )
 
-
+    # check if the request method is a get request. 
     if request.method == "GET":          
+
+        # checks if the specific file has a password if so, return the "enter password" screen
+        # else just send the file
         if fd[2] and not passwd:
             url = f"http://{os.environ.get('HOSTNAME')}:{os.environ.get('PORT')}/f/{fd[0]}"
             return render_template("enter-password.html", url=url)
