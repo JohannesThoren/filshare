@@ -6,7 +6,7 @@ a open source files haring website, made to make it easier to set up file sharin
 the server is very easy to setup, clone the repo and set some environment variables
 
 
-###
+### VARIABLES
 | variables             | type         | description                                           |
 | --------------------- | ------------ | ----------------------------------------------------- |
 | DB_PATH               | str/filepath | filepath to the sqlite database file                  |
