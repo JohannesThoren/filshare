@@ -35,17 +35,17 @@ def upload():
     open(os.path.join(os.environ.get("FILE_STORAGE_LOCATION"), uid), "w+").close()
     file.save(os.path.join(os.environ.get("FILE_STORAGE_LOCATION"), uid))
 
-    file_password = request.form.get("Password")
+    password = request.form.get("Password")
     email = request.form.get("Email")
     url = f"http://{os.environ.get('HOSTNAME')}:{os.environ.get('PORT')}/f/{uid}"
     date = datetime.datetime.now()
 
-    if(file_password != ""):
-        db.add_file(uid, file.filename, email, md5(file_password.encode("UTF-8")).hexdigest(), date=date)
+    if(password != ""):
+        db.add_file(uid, file.filename, email, md5(password.encode("UTF-8")).hexdigest(), date=date)
     else:
         db.add_file(uid, file.filename, email, "", date=date)
 
-    return render_template("file-details.html", password=file_password, filename=file.filename, url=url)
+    return render_template("file-details.html", password=password, filename=file.filename, url=url)
 
 
 @app.route('/f/<uid>', methods=["GET", "POST"])
@@ -74,4 +74,4 @@ def download(uid):
 
 if __name__ == "__main__":
     app.run(port=os.environ.get("PORT"),
-            host=os.environ["HOSTNAME"], debug=True)
+            host=os.environ["HOSTNAME"], debug=os.environ["DEBUG"])            
